@@ -1,0 +1,612 @@
+---
+title: "Analysis of Systolic Blood Pressure (SBP) and Insight Into The Factors that Affect it"
+author: 'Aly Abdelwahed, Manish Suresh'
+output: pdf_document
+documentclass: article
+geometry: margin=1.1cm
+---
+
+**Name of the Data Set: Data Set 2 - Factors Affecting Systolic Blood Pressure (SBP)**
+
+# [**Jobs Done By Each Member**]{.ul}
+
+## **Aly Abdelwahed**
+
++------------------------------------------------+------------------------------------------------------------------------------------+
+| Job                                            | Description                                                                        |
++:==============================================:+:==================================================================================:+
+| **Introduction**                               | Did the introduction section of the case study                                     |
++------------------------------------------------+------------------------------------------------------------------------------------+
+| **References**                                 | Added the APA Citation at the end of the document                                  |
++------------------------------------------------+------------------------------------------------------------------------------------+
+| **Description**                                | Added the Description of the data Set section of the Case Study                    |
++------------------------------------------------+------------------------------------------------------------------------------------+
+| **Model Validation**                           | Performed the validation on the model to make sure it is sound/effective           |
++------------------------------------------------+------------------------------------------------------------------------------------+
+| **Model Diagnostics - Regression Assumptions** | Performed the verification that the model satisfies all the regression assumptions |
++------------------------------------------------+------------------------------------------------------------------------------------+
+| **Limitations**                                | Discussed the limitations of the model we chose on how we can improve it further   |
++------------------------------------------------+------------------------------------------------------------------------------------+
+| **Conclusion**                                 | Gave the final conclusive statement of the case study                              |
++------------------------------------------------+------------------------------------------------------------------------------------+
+
+## **Manish Suresh**
+
++--------------------------------------------------+------------------------------------------------------------------------------+
+| Job                                              | Description                                                                  |
++:================================================:+:============================================================================:+
+| **Data Cleaning**                                | Performed the cleaning process of the data                                   |
++--------------------------------------------------+------------------------------------------------------------------------------+
+| **Model Building**                               | Built the models used in the case study                                      |
++--------------------------------------------------+------------------------------------------------------------------------------+
+| **Model Selection**                              | Performed model selection process for the final model used in the case study |
++--------------------------------------------------+------------------------------------------------------------------------------+
+| **Model Diagnostics - Influential Observations** | Performed model diagnostics on the final model chosen                        |
++--------------------------------------------------+------------------------------------------------------------------------------+
+
+\newpage
+
+# [**Introduction**]{.ul}
+
+### Describe your research question/hypothesis/study aims
+
+Our aim of this study is to prove that there is a relationship between the Systolic Blood Pressure (SBP) and the following:
+
+-   $\textbf{Age}$: As a person's age increases, his/her SBP increases **(Singh, 2020)**
+
+-   $\textbf{Gender}$: Males generally tend to have a higher SBP than females **(Reckelhoff, 2001)**
+
+-   $\textbf{BMI}$: BMI is positively associated with SBP. Weight loss means a lower BMI significantly reduces the SBP **(George C. Linderman, 2018)**
+
+-   $\textbf{Stress}$: Stressful situations can cause your blood pressure to spike **(Mayo Clinic Staff, 2021)**. So the higher the stress level, the higher the SBP. And the lower the stress level, the lower the SBP
+
+-   $\textbf{Salt Intake Level}$: There is a direct correlation between salt and blood pressure: the consumption of salt raises blood pressure **(McCabe, 2019)**. So the more salt intake a person gets, the higher his/her SBP becomes, and the lower the salt intake a person gets, the lower his/her SBP becomes
+
+-   $\textbf{Smoking}$: The nicotine in tobacco products affects the blood vessels in a way which makes a person's blood pressure get higher which means the SBP gets higher too **(American Family Physician, 2004)**. So in summary, a smoking person has a higher blood pressure and as such a higher SBP than a non-smoking person
+
+-   $\textbf{Alcohol Use}$: Drinking too much alcohol can raise one's blood pressure **(American Heart Association, 2016)**. So the higher the alcohol level in a person, the higher his/her blood pressure becomes which means the higher his/her SBP becomes, and the lower the alcohol levels in a person, the lower the person's blood pressure becomes and which his/her SBP becomes lower as well
+
+-   $\textbf{Race}$: People from different races have different blood pressures at matched ages **(Lackland, 2014)**
+
+-   $\textbf{Treatment (for hypertension)}$: There are treatments that can reduce a person's blood pressure **(American Heart Association, 2017)**
+
+-   $\textbf{Exercise}$: Exercise helps in reducing a person's blood pressure which means the SBP also gets reduced the more a person exercises because the more exercise a person does, the more weight he/she burns. Similarly, lack of exercise contributes to an increase in the person's blood pressure which his/her SBP increases with the lack of exercise **(Mayo Clinic, 2021)**
+
+### Brief background about the topic
+
+The topic of this research is that a person's **Blood pressure** is measured using two values: The first value is called the **systolic blood pressure (SBP)**, it measures the **pressure** in a person's arteries when his/her heart beats. The second value is called **diastolic blood pressure (DSP)**, it measures the **pressure** in a person's arteries when his/her heart rests between beats. **(Centers for Disease Control and Prevention, 2020)** The goal of this research is to prove the effect of certain factors such as age, race, BMI, alcohol level...etc have on the **systolic blood pressure (SBP)** and how their variations can either decrease or increase a person's **systolic blood pressure (SBP)**.
+
+### Describe how your data was cleaned
+
+First, we verified if there is any missing data. Afterwards, we verified that there are no duplicate records in the given data. Then, we checked if there are any corrupted data (e.g. data record of a person who comes from a different race like race 5 for example, or a stress level that does not belong to levels 1,2,3,....etc). Afterwards, we verified that the BMI values are correct for the given height and weight. Then, we changed the categorical values into dummy variables (i.e. converted some of the categorical data into usable format). Lastly, we checked multicollinearity between the data. And finally, we removed the columns of the data we wouldn't need
+
+### Brief description of what analyses you will conduct in the paper
+
+Briefly, we will begin by checking some statistics if there are any . Afterwards, we begin the data cleaning process. Afterwards, we begin the model building and model selection process. Then, after choosing the model we will use, we will perform model validation and model diagnostics on it and verify that it satisfies all the regression assumptions. Afterwards, we will discuss the potential limitations of the model and lastly, we will come to the conclusion we get to.
+
+### Explain why some variables will be left out of the model (if you decide not to use all the variables listed)
+
+-   $\textbf{Height and Weight}$: **Height** and **weight** are used in calculating the BMI because **BMI** is a measure of body fat based on **height and weight** that applies to adult men and women, hence using height and weight is not important in seeing how it affects a person's **SBP** since we are already using BMI as part of our calculation. In other words, their effect on a person's **SBP** is already considered through using **BMI** as part of our analysis
+
+-   $\textbf{Overweight}$: Similar situation to height and weight, it is already accounted for in our model with the inclusion of BMI
+
+-   $\textbf{Martial Status, Education Level, income, and Childbearing Potential}$: They do not provide enough information that can help in determining a person's SBP
+
+# [**Description of the Data Set**]{.ul}
+
+### Include descriptive statistics for each one of the variables that you will be analyzing
+
+```{r include=FALSE}
+library(tidyverse)
+library(readxl)
+library(broom)
+library(olsrr)
+library(MASS)
+library(leaps)
+library(dplyr)
+library(car)
+library(MPV)
+library(ggplot2)
+library(data.table)
+library(ggpubr)
+```
+
+```{r}
+bloodPressureData <- read_excel("BloodPressure.xlsx")
+actual.bloodPressureData <- bloodPressureData
+bloodPressureData %>%
+  mutate(married = ifelse(married == "N", 0, 1)) %>%
+  mutate(gender = ifelse(gender == "F", 0, 1)) %>%
+  mutate(smoke = ifelse(smoke == "N", 0, 1)) -> actual.bloodPressureData
+```
+
+```{r echo=FALSE, fig.height=5, fig.width=10, message=FALSE, warning=FALSE, paged.print=TRUE}
+#Gender
+genderCount <-  c(as.numeric(count(actual.bloodPressureData[c("sbp", "gender")][actual.bloodPressureData[, "gender"] == "0",])), 
+                  as.numeric(count(actual.bloodPressureData[c("sbp", "gender")][actual.bloodPressureData[, "gender"] == "1",])))
+
+genderLabels <-  c("Female","Male")
+genderPiepercent<- round(100*genderCount/sum(genderCount), 1)
+genderLbls <- paste(genderPiepercent,"%",sep="")
+
+#Smoking/Non-smoking
+smokingCount <-  c(as.numeric(count(actual.bloodPressureData[c("sbp", "smoke")][actual.bloodPressureData[, "smoke"] == 1,])), 
+                   as.numeric(count(actual.bloodPressureData[c("sbp", "smoke")][actual.bloodPressureData[, "smoke"] == 0,])))
+
+smokingLabels <-  c("Smoking","Non-smoking")
+smokingPiepercent<- round(100*smokingCount/sum(smokingCount), 1)
+smokingLbls <- paste(smokingPiepercent,"%",sep="")
+
+
+#Treatment/No-Treatment
+trtCount <-  c(as.numeric(count(actual.bloodPressureData[c("sbp", "trt")][actual.bloodPressureData[, "trt"] == 1,])), 
+               as.numeric(count(actual.bloodPressureData[c("sbp", "trt")][actual.bloodPressureData[, "trt"] == 0,])))
+
+trtLabels <-  c("Treatment","No Treatment")
+trtPiepercent<- round(100*trtCount/sum(trtCount), 1)
+trtLbls <- paste(trtPiepercent,"%",sep="")
+
+#Race
+raceCount <-  c(as.numeric(count(actual.bloodPressureData[c("sbp", "race")][actual.bloodPressureData[, "race"] == 1,])), 
+                as.numeric(count(actual.bloodPressureData[c("sbp", "race")][actual.bloodPressureData[, "race"] == 2,])),
+                as.numeric(count(actual.bloodPressureData[c("sbp", "race")][actual.bloodPressureData[, "race"] == 3,])),
+                as.numeric(count(actual.bloodPressureData[c("sbp", "race")][actual.bloodPressureData[, "race"] == 4,])))
+
+raceLabels <-  c("Race 1","Race 2","Race 3","Race 4")
+racePiepercent<- round(100*raceCount/sum(raceCount), 1)
+raceLbls <- paste(racePiepercent,"%",sep="")
+
+
+#Exercise
+exerciseCount <-  c(as.numeric(count(actual.bloodPressureData[c("sbp", "exercise")][actual.bloodPressureData[, "exercise"] == 1,])), 
+                    as.numeric(count(actual.bloodPressureData[c("sbp", "exercise")][actual.bloodPressureData[, "exercise"] == 2,])),
+                    as.numeric(count(actual.bloodPressureData[c("sbp", "exercise")][actual.bloodPressureData[, "exercise"] == 3,])))
+
+exerciseLabels <-  c("Level 1","Level 2","Level 3")
+exercisePiepercent<- round(100*exerciseCount/sum(exerciseCount), 1)
+exerciseLbls <- paste(exercisePiepercent,"%",sep="")
+
+
+#Overweight
+overwtCount <-  c(as.numeric(count(actual.bloodPressureData[c("sbp", "overwt")][actual.bloodPressureData[, "overwt"] == 1,])), 
+                  as.numeric(count(actual.bloodPressureData[c("sbp", "overwt")][actual.bloodPressureData[, "overwt"] == 2,])),
+                  as.numeric(count(actual.bloodPressureData[c("sbp", "overwt")][actual.bloodPressureData[, "overwt"] == 3,])))
+
+overwtLabels <-  c("Level 1","Level 2","Level 3")
+overwtPiepercent<- round(100*overwtCount/sum(overwtCount), 1)
+overwtLbls <- paste(overwtPiepercent,"%",sep="")
+
+#Alcohol
+alcoholCount <-  c(as.numeric(count(actual.bloodPressureData[c("sbp", "alcohol")][actual.bloodPressureData[, "alcohol"] == 1,])), 
+                   as.numeric(count(actual.bloodPressureData[c("sbp", "alcohol")][actual.bloodPressureData[, "alcohol"] == 2,])),
+                   as.numeric(count(actual.bloodPressureData[c("sbp", "alcohol")][actual.bloodPressureData[, "alcohol"] == 3,])))
+
+alcoholLabels <-  c("Level 1","Level 2","Level 3")
+alcoholPiepercent<- round(100*alcoholCount/sum(alcoholCount), 1)
+alcoholLbls <- paste(alcoholPiepercent,"%",sep="")
+
+#Stress
+stressCount <-  c(as.numeric(count(actual.bloodPressureData[c("sbp", "stress")][actual.bloodPressureData[, "stress"] == 1,])), 
+                  as.numeric(count(actual.bloodPressureData[c("sbp", "stress")][actual.bloodPressureData[, "stress"] == 2,])),
+                  as.numeric(count(actual.bloodPressureData[c("sbp", "stress")][actual.bloodPressureData[, "stress"] == 3,])))
+
+stressLabels <-  c("Level 1","Level 2","Level 3")
+stressPiepercent<- round(100*stressCount/sum(stressCount), 1)
+stressLbls <- paste(stressPiepercent,"%",sep="")
+
+
+#Salt
+saltCount <-  c(as.numeric(count(actual.bloodPressureData[c("sbp", "salt")][actual.bloodPressureData[, "salt"] == 1,])), 
+                as.numeric(count(actual.bloodPressureData[c("sbp", "salt")][actual.bloodPressureData[, "salt"] == 2,])),
+                as.numeric(count(actual.bloodPressureData[c("sbp", "salt")][actual.bloodPressureData[, "salt"] == 3,])))
+
+saltLabels <-  c("Level 1","Level 2","Level 3")
+saltPiepercent<- round(100*saltCount/sum(saltCount), 1)
+saltLbls <- paste(saltPiepercent,"%",sep="")
+
+
+layout(matrix(c(1,2,3,4,5,6,7,8,9,9), 2, 5, byrow = TRUE))
+
+pie(genderCount, labels = genderLbls, main = "Gender pie chart",col = rainbow(length(genderCount)))
+legend("topright", genderLabels, cex = 0.8, fill = rainbow(length(genderCount)))
+
+pie(smokingCount, labels = smokingLbls, main = "Smoking pie chart",col = rainbow(length(smokingCount)))
+legend("topright", smokingLabels, cex = 0.8, fill = rainbow(length(smokingCount)))
+
+pie(exerciseCount, labels = exerciseLbls, main = "Exercise pie chart",col = rainbow(length(exerciseCount)))
+legend("bottomleft", exerciseLabels, cex = 0.8, fill = rainbow(length(exerciseCount)))
+
+pie(overwtCount, labels = overwtLbls, main = "Overweight pie chart",col = rainbow(length(overwtCount)))
+legend("bottomleft", overwtLabels, cex = 0.8, fill = rainbow(length(overwtCount)))
+
+
+
+#layout(matrix(c(1,2,3), 1, 3, byrow = TRUE), widths=c(15,15,15), heights=c(1))
+pie(alcoholCount, labels = alcoholLbls, main = "Alcohol pie chart",col = rainbow(length(alcoholCount)))
+legend("bottomleft", alcoholLabels, cex = 0.8, fill = rainbow(length(alcoholCount)))
+
+pie(stressCount, labels = stressLbls, main = "Stress pie chart",col = rainbow(length(stressCount)))
+legend("bottomleft", stressLabels, cex = 0.8, fill = rainbow(length(stressCount)))
+
+pie(saltCount, labels = saltLbls, main = "Salt pie chart",col = rainbow(length(saltCount)))
+legend("right", saltLabels, cex = 0.8, fill = rainbow(length(saltCount)))
+
+pie(trtCount, labels = trtLbls, main = "Treatment pie chart",col = rainbow(length(trtCount)))
+legend("bottomright", trtLabels, cex = 0.8, fill = rainbow(length(trtCount)))
+
+pie(raceCount, labels = raceLbls, main = "Race pie chart",col = rainbow(length(raceCount)))
+legend("bottomleft", raceLabels, cex = 0.8, fill = rainbow(length(raceCount)))
+
+```
+
+As we can see, almost all the pie charts look evenly split, except for the Race and Treatment pie charts.
+
+```{r echo=FALSE, fig.height=2.5, fig.width=10, message=FALSE, warning=FALSE}
+par(mfrow=c(1,2))
+hist(actual.bloodPressureData$age, main="Age", xlab = "Age of the person")
+hist(actual.bloodPressureData$bmi, main="BMI", xlab = "Level of BMI")
+```
+
+As we can see from the two histograms, both age and BMI are normally distributed but BMI is slightly skewed to the right
+
+#### --- The distribution of the response variable
+
+$\\$
+
+```{r echo=FALSE, fig.height=3, fig.width=10, message=FALSE, warning=FALSE}
+par(mfrow=c(1,1))
+#hist(actual.bloodPressureData$sbp, main="SBP Distribution", xlab = "Level of SBP")
+ggplot(actual.bloodPressureData, aes(x = actual.bloodPressureData$sbp, y = ..density..)) + labs(title = "SBP Distribution")+ labs (x = "Level of SBP")+ geom_histogram(bins = 7, color = "grey", fill = "Blue") +
+  geom_density(color = "Gold", size = 1.5)
+```
+
+As we can see from the graph above, the response variable is normally distributed.
+
+$\\$ **--- The relationship between the response variable and the exploratory variables**
+
+```{r echo=FALSE, fig.height=4, fig.width=10, message=FALSE, warning=FALSE}
+layout(matrix(c(1,2,3,4,5,6,7,8,9,10,11,11), 2, 6, byrow = TRUE))
+
+plot(actual.bloodPressureData$age, actual.bloodPressureData$sbp, main="Age vs SBP", xlab="Age", ylab="Systolic Blood Pressure", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$sbp~actual.bloodPressureData$age), col="red")
+
+plot(actual.bloodPressureData$exercise, actual.bloodPressureData$sbp, main="Exercise vs SBP", xlab="Exercise", ylab="Systolic Blood Pressure", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$sbp~actual.bloodPressureData$exercise), col="red")
+
+plot(actual.bloodPressureData$overwt, actual.bloodPressureData$sbp, main="Overweight vs SBP", xlab="Overweight", ylab="Systolic Blood Pressure", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$sbp~actual.bloodPressureData$overwt), col="red")
+
+plot(actual.bloodPressureData$race, actual.bloodPressureData$sbp, main="Race vs SBP", xlab="Race", ylab="Systolic Blood Pressure", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$sbp~actual.bloodPressureData$race), col="red")
+
+plot(actual.bloodPressureData$alcohol, actual.bloodPressureData$sbp, main="Alcohol vs SBP", xlab="Alcohol", ylab="Systolic Blood Pressure", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$sbp~actual.bloodPressureData$alcohol), col="red")
+
+plot(actual.bloodPressureData$trt, actual.bloodPressureData$sbp, main="Treatment vs SBP", xlab="Treatment", ylab="Systolic Blood Pressure", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$sbp~actual.bloodPressureData$trt), col="red")
+
+plot(actual.bloodPressureData$stress, actual.bloodPressureData$sbp, main="Stress vs SBP", xlab="Stress", ylab="Systolic Blood Pressure", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$sbp~actual.bloodPressureData$stress), col="red")
+
+plot(actual.bloodPressureData$salt, actual.bloodPressureData$sbp, main="Salt vs SBP", xlab="Salt", ylab="Systolic Blood Pressure", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$sbp~actual.bloodPressureData$salt), col="red")
+
+plot(actual.bloodPressureData$gender, actual.bloodPressureData$sbp, main="Gender vs SBP", xlab="Gender", ylab="Systolic Blood Pressure", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$sbp~actual.bloodPressureData$gender), col="red")
+
+plot(actual.bloodPressureData$smoke, actual.bloodPressureData$sbp, main="Smoke vs SBP", xlab="Smoke", ylab="Systolic Blood Pressure", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$sbp~actual.bloodPressureData$smoke), col="red")
+
+plot(actual.bloodPressureData$bmi, actual.bloodPressureData$sbp, main="BMI vs SBP", xlab="BMI", ylab="Systolic Blood Pressure", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$sbp~actual.bloodPressureData$bmi), col="red")
+```
+
+We can see from the above that there is a direct linear relationship between a person's SBP and each of Stress Level, BMI, Alcohol Level, and whether a person is smoking or not.
+
+**--- The relationship between the exploratory variables themselves**
+
+```{r echo=FALSE, fig.height=3, fig.width=10, message=FALSE, warning=FALSE}
+layout(matrix(c(1,2), 1, 2, byrow = TRUE))
+
+plot(actual.bloodPressureData$bmi, actual.bloodPressureData$overwt, main="BMI vs Overwt", xlab="BMI", ylab="Overweight", pch=19, col = "Blue")
+abline(lm(actual.bloodPressureData$overwt~actual.bloodPressureData$bmi), col="red")
+
+
+counts <- table(actual.bloodPressureData$smoke, actual.bloodPressureData$stress)
+barplot(counts, main="Level of Stress vs Smoking",
+        xlab="Level of Stress", col=c("darkblue", "red"), beside=TRUE)
+legend("topleft", legend=c("Non-smoking", "Smoking"),
+       fill=c("darkblue", "red"), cex=0.8)
+
+# counts <- table(actual.bloodPressureData$smoke, actual.bloodPressureData$bmi)
+# barplot(counts, main="Age vs Smoking",
+#         xlab="Level of Stress", col=c("darkblue", "red"))
+# legend("topleft", legend=c("Non-smoking", "Smoking"),
+#        fill=c("darkblue", "red"), cex=0.8)
+
+```
+
+As we can see from these plots, we notice that the higher BMI means the more overweight a person is. We also notice that a person's stress level increases, the amount of people smoking increases as well.
+
+# Data Cleaning
+
+1.  Check if there is any missing data
+
+```{r include=FALSE}
+apply(is.na(actual.bloodPressureData), 2, which)
+```
+
+There is no missing data in the model, hence we can move forward with further cleaning of the data
+
+2.  Check if there is any duplicate data
+
+```{r include=FALSE}
+duplicated.data.frame(actual.bloodPressureData) %>%
+  enframe(.) %>%
+  filter(value == TRUE)
+```
+
+As we can see, there are no duplicate records, hence we can move forward with further cleaning of the data
+
+3.  Check if there is any corrupted data
+
+```{r include=FALSE}
+actual.bloodPressureData %>%
+  filter(gender == "M" | gender == "F") %>%
+  filter(married == "N" | married == "Y") %>%
+  filter(smoke == "N" | smoke == "Y") %>%
+  filter(exercise == 1 | exercise == 2 | exercise == 3) %>%
+  filter(overwt == 1 | overwt == 2 | overwt == 3) %>%
+  filter(race == 1 | race == 2 | race == 3 | race == 4) %>%
+  filter(alcohol == 1 | alcohol == 2 | alcohol == 3) %>%
+  filter(trt == 0 | trt == 1) %>%
+  filter(stress == 1 | stress == 2 | stress == 3) %>%
+  filter(salt == 1 | salt == 2 | salt == 3) %>%
+  filter(chldbear == 1 | chldbear == 2 | chldbear == 3) %>%
+  filter(income == 1 | income == 2 | income == 3) %>%
+  filter(educatn == 1 | educatn == 2 | educatn == 3) %>%
+  nrow(.)
+
+```
+
+Basically what we did is check whether the categorical variables are as identified as mentioned in the sbp data description.
+
+4.  Check if the BMI is correct The BMI formula is $\frac{Weight}{Height^2} * 703$. So lets confirm whether the data we have been given is correct
+
+```{r include=FALSE}
+actual.bloodPressureData %>%
+  dplyr::select(weight, height, bmi) %>%
+  mutate(bmi.conf = as.integer(weight/(height*height) * 703)) %>%
+  mutate(conf = bmi == bmi.conf) %>%
+  filter(conf == FALSE)
+```
+
+Hence, the BMI numbers are correct
+
+5.  We need to convert the data into usable format and removed the unnecessary columns
+
+```{r}
+bloodPressureData %>%
+  mutate(gender = ifelse(gender == "F", 0, 1)) %>%
+  mutate(married = ifelse(married == "N", 0, 1)) %>%
+  mutate(smoke = ifelse(smoke == "N", 0, 1)) %>%
+  
+  dplyr::select(sbp:age,race:salt) -> cleaned.bloodPressureData
+```
+
+6.  Checking multicollinearity
+
+```{r}
+correlations<-cor(cleaned.bloodPressureData)
+correlations[correlations < 0.6 | correlations ==1] <- ""
+correlations
+```
+
+As we can see from the correlation matrix above, every "" sign indicates that the correlation between our predictors is less than 0.6, which means there is no sign of multicollinearity.
+
+# [**Building Model and Model Validation**]{.ul}
+
+### Build the best multiple regressions model that you can find
+
+Now, we split our data into a training set and a test set
+
+```{r}
+set.seed(1004269365)
+samples <- sample(1:500, 400, replace = FALSE)
+training.bloodPressureData <- cleaned.bloodPressureData[samples,]
+validate.bloodPressureData <- cleaned.bloodPressureData[-samples,]
+```
+
+Since we are dealing with a lot of categorical predictors, we fit an additive as follows:
+
+```{r echo=FALSE, message=FALSE, warning=FALSE}
+
+fit.1 <- lm(sbp ~ 1, data = training.bloodPressureData)
+
+fit.additive <- lm(sbp ~ bmi + age + factor(gender) + factor(married) + factor(smoke) + factor(exercise) + factor(race) + factor(alcohol) + factor(trt) + factor(stress) + factor(salt) , data = training.bloodPressureData)
+
+head(tidy(fit.additive))
+adjustedRFit1 <- summary(fit.1)$adj.r.squared
+adjustedR <- summary(fit.additive)$adj.r.squared
+```
+
+As we can see from the model above, the additive model improves the adjusted $R^2$ from `r adjustedRFit1` to `r adjustedR`
+
+Now we would like to improve this model by running backwards regression
+
+```{r message=FALSE, warning=FALSE, echo = T, results = 'hide'}
+stepAIC(fit.additive, direction = "both")
+```
+
+```{r}
+fit.add.optimal <- lm(formula = sbp ~ bmi + factor(smoke) + factor(exercise) + factor(alcohol) + factor(trt), data = training.bloodPressureData)
+
+head(tidy(fit.add.optimal))
+adjustedRAdditiveOptimal <- summary(fit.add.optimal)$adj.r.squared
+```
+
+Now, as we can see, after optimizing and removing certain predictors, we improved our adjusted $R^2$ from `r adjustedR` to `r adjustedRAdditiveOptimal`
+
+Now, we would like improve our model even further because both our multiple $R^2$ and adjusted $R^2$ are pretty low. As such, we will use interactions between the predictor variables and optimize it using backwards regression.
+
+```{r message=FALSE, warning=FALSE, echo = T, results = 'hide'}
+fit.interact <- lm(formula = sbp ~ bmi * factor(smoke) * factor(exercise) * factor(alcohol) * factor(trt), data = training.bloodPressureData)
+
+stepAIC(fit.add.optimal, direction = "both", scope = list(upper = fit.interact, lower = fit.add.optimal))
+```
+
+Now, from all the optimization we just performed we reached what we believe is a good model which is;
+
+```{r}
+fit.interact.optimal <- lm(formula = sbp ~ bmi + factor(smoke) + factor(exercise) + factor(alcohol) + factor(trt) + bmi:factor(trt) + bmi:factor(alcohol) + factor(alcohol):factor(trt) + factor(smoke):factor(trt), data = training.bloodPressureData)
+
+summary(fit.interact.optimal)
+adjustedRInteractOptimal <- summary(fit.interact.optimal)$adj.r.squared
+```
+
+Now, as we can see, after optimizing and removing certain predictors, we improved our adjusted $R^2$ from `r adjustedRAdditiveOptimal` to `r adjustedRInteractOptimal`
+
+### Interpretation of the model
+
+From the estimates that are provided by the output summary of our final model above, we can interpret it as follows:
+
+1.  **BMI:** It plays a significant role and its' estimate suggests that every unit of increase of BMI, we get a `r as.numeric(coefficients(fit.interact.optimal)[2])` increase in the SBP
+
+2.  **Smoke:** It also plays a significant role and its' estimate suggests that the average sbp of a person smoking is `r as.numeric(coefficients(fit.interact.optimal)[3])` higher than a non-smoking person at any BMI
+
+3.  **Exercise:** It also plays a significant role and its' estimate suggests that on average a person whose exercises is `r abs((as.numeric(coefficients(fit.interact.optimal)[4])+as.numeric(coefficients(fit.interact.optimal)[5]))/2)` lower than a non-exercising person
+
+4.  **Alcohol:** It plays a significant role and its' estimate suggests that on average a `r abs((as.numeric(coefficients(fit.interact.optimal)[6])+as.numeric(coefficients(fit.interact.optimal)[7]))/2)` which is a very considerable change. Hence, don't drink alcohol, stay healthy
+
+5.  **(BMI)\*(Alcohol):** This interaction term suggests that while alcohol increases our SBP, the slope of BMI reduces. In other words, a person who drinks alcohol, and controlling for other variables, with a single increase of a unit of BMI, only increases on 0.83745 on average
+
+### Clearly indicate your final (selected) regression equation based on your output from R
+
+$SBP = 93.95 + 1.75(BMI) + 13.78(Smoke) - 11.61(Exercise2) - 10.44(Exercise3) + 22.57(Alcohol2) + 43.29(Alcohol3) + 29.08(trt) - 0.98(bmi)(trt) - 0.8(bmi)(Alcohol2) - 1.02(bmi)(Alcohol3) - 2.89(Alcohol2)(trt) - 16.32(Alcohol3)(trt) - 11.6(Smoke)(trt)$
+
+### Validate your final selected model
+
+```{r include=FALSE}
+pred.cv.out <- predict(fit.interact.optimal,validate.bloodPressureData)
+delta.cv.out <- validate.bloodPressureData$sbp - pred.cv.out
+n.star = dim(validate.bloodPressureData)[1]
+MSPR <- sum((delta.cv.out)^2)/n.star
+MSPR
+
+
+resid_values <- resid(fit.interact.optimal)
+resid_values_squared = resid_values^2
+
+MSE = sum(resid_values_squared)/fit.interact.optimal$df.residual
+MSE
+```
+
+As we can see, the MSPR is `r MSPR` and the MSE is `r MSE`. When comparing both values in terms of their ratios, we will see that $\frac{`r MSE`}{`r MSPR`}= `r MSE/MSPR`$ which means they are very close and hence we can validate the model. This is also confirmed by performing cross validation:
+
+```{r}
+pressStat <- PRESS(fit.interact.optimal)
+pressStat
+SSE <- anova(fit.interact.optimal)$`Sum Sq`[10]
+anova(fit.interact.optimal)
+```
+
+As we can see, the PRESS statistic's value is `r format(SSE,scientific = F)` and the SSE of the model is `r format(SSE,scientific = F)` which are also fairly close as their ratio is $\frac{`r format(SSE,scientific = F)`}{`r format(pressStat,scientific = F)`} = `r SSE/pressStat`$. Hence, we can further confirm the validation of our model using cross validation. Hence, we can confirm that our model is sound and effective for the purpose for which it was intended.
+
+# [**Model Diagnostics**]{.ul}
+
+### Check if regression assumptions are valid using residual diagnostics & make sure to interpret what the plots mean in relation to your model
+
+```{r echo=FALSE, fig.height=2.8, fig.width=10, message=FALSE, warning=FALSE}
+rSquared = summary(fit.interact.optimal)$r.squared
+
+Residuals <- resid(fit.interact.optimal)
+
+Fitted <- fitted.values(fit.interact.optimal)
+
+graph.data <- cbind.data.frame(Residuals, Fitted)
+
+gp <- ggplot(graph.data, aes(x=Fitted, y=Residuals)) + geom_point() +
+  ggtitle("Residuals vs Fitted Values") + geom_hline(yintercept = 0)
+
+qq <- ggplot(training.bloodPressureData, aes(sample = sbp))+stat_qq()+stat_qq_line()  + ggtitle("Normal QQ Plot") 
+
+ggarrange(gp, qq, 
+          labels = c("", ""),
+          ncol = 2, nrow = 1)
+```
+
+```{r echo=FALSE}
+shapiro.test(Residuals)
+```
+
+We can see from the summary of the model that $R^2$ = `r rSquared` which means that the predictors of this model explain almost 24% of the variance of our response variable **(SBP)**. Also, based on the residual plot, we cannot see any patterns, they are randomly scattered. Hence, the error variance seems to be constant, and the relationship is linear. In addition to that, Based on how closely the Normal Q-Q plot is forming a shape of a line y=x and the Shapiro-Wilk's test's p-value which is 0.07762 which is greater than 0.05 as required. Hence, we can conclude that the residuals are coming from the normal population. Thus all regression assumptions are satisfied.
+
+### Check if there any outlying and influential points
+
+```{r fig.height=5, fig.width=10, message=FALSE, warning=FALSE, include=FALSE}
+c <- ols_plot_resid_stud(fit.interact.optimal)
+d <-ols_plot_resid_lev(fit.interact.optimal)
+```
+
+```{r echo=FALSE, fig.height=2.5, fig.width=10, message=FALSE, warning=FALSE}
+ggarrange(c,d, 
+          labels = c("", ""),
+          ncol = 2, nrow = 1)
+```
+
+Studentized Deleted Residuals - Outlying Y observations:
+
+```{r include=FALSE}
+t = rstudent(fit.interact.optimal)
+alpha <- 0.05
+n = 400
+p.prime = length(coef(fit.interact.optimal))
+t.crit = qt(1 - alpha/(2*n), n - p.prime - 1)
+t.crit
+```
+
+As we can see, from the studentized residual plot, the threshold value is abs(3) which is fitted for large data sets. However, since we are working with medium data sets, the threshold is `r t.crit`. So, as we can see, the output that we received shows that there are no outlying Y observations.
+
+Leverage - Outlying X observations: As we can see, the output that we received from the Leverage shows that the values failed the guideline 1, but satisfy the guideline 2 which indicates that there are no outlying X observations.
+
+Now since there are no outlying observations, therefore there are no influential observations either. Hence, our diagnostics is done!
+
+# [**Conclusion**]{.ul}
+
+### Summarize findings
+
+-   Our analysis do indeed support our hypothesis in the sense that smoking, exercise, and alcohol level do indeed play a role in determining a person's SBP
+
+### Address limitations of your study
+
+-   Even though our research shows that people from different races have different blood pressures at matched ages, when looking at the distribution of the races, we see that the data is very biased towards people from Race 1. Hence, the model is not as good at predicting the SBP of people who come from races 2,3,4 as it is for predicting the SBP for people from Race 1. Hence is the reason why it has been excluded out of our model after performing optimization
+
+-   Our Multiple $R^2$ is `r rSquared`, and our Adjusted $R^2$ is `r summary(fit.interact.optimal)$adj.r.squared` which are both pretty low. In terms of Multiple $R^2$, this means that our model is not great at predicting the behavior of a person's SBP. Since adjusted $R^2$ depends on both Multiple $R^2$ and the number of predictors, all we can gather from the low adjusted $R^2$ is that our model is not good because we know almost all our predictors are significant
+
+-   The treatment predictors in our model do not make sense. As we know, the underlying reason for taking treatment is if the person's SBP is high which SHOULD reduce the SBP to a healthy level. However, in our model, treatment does the opposite. Controlling for all other predictors, treatment on it's own increases a person's SBP by 29.1 which does not make sense. In addition to that, controlling for all other predictors, the smoke predictor on its' own increases the person's SBP by 13.8 which makes sense. However, controlling for all other predictors, if a person does smoke and does take treatment then his SBP increases by 31.3 which is higher than if the person smokes and doesn't take treatment, which also does not make sense
+
+# [**References**]{.ul}
+
+-   Singh, J. (2020, September 03). Physiology, blood pressure age related changes. Retrieved March 30, 2021, from <https://www.ncbi.nlm.nih.gov/books/NBK537297/#>
+
+-   Reckelhoff, J. F. (2001). Gender differences in the regulation of blood pressure. Hypertension, 37(5), 1199-1208. <doi:10.1161/01.hyp.37.5.1199>
+
+-   George C. Linderman, B. (2018, August 17). Association of body mass index with blood pressure Among 1.7 million Chinese adults. Retrieved March 30, 2021, from <https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2696872#>
+
+-   Mayo Clinic Staff. (2021, March 18). Stress and high blood pressure: What's the connection? Retrieved March 30, 2021, from <https://www.mayoclinic.org/diseases-conditions/high-blood-pressure/in-depth/stress-and-high-blood-pressure/art-20044190#>
+
+-   McCabe, B. (2019, November 26). Can salt help improve low blood pressure? - Cardiac / heart HEALTH, FEATURED, health topics. Retrieved March 30, 2021, from <https://www.hackensackmeridianhealth.org/HealthU/2019/11/22/can-salt-help-improve-low-blood-pressure/#>
+
+-   American Heart Association. (2016, October 31). Limiting alcohol to manage high blood pressure. Retrieved March 30, 2021, from <https://www.heart.org/en/health-topics/high-blood-pressure/changes-you-can-make-to-manage-high-blood-pressure/limiting-alcohol-to-manage-high-blood-pressure#>
+
+-   American Heart Association. (2017, October 31). Types of blood pressure medications. Retrieved March 30, 2021, from <https://www.heart.org/en/health-topics/high-blood-pressure/changes-you-can-make-to-manage-high-blood-pressure/types-of-blood-pressure-medications>
+
+-   A.D.A.M. Inc. (n.d.). High blood pressure - medicine-related: Medlineplus medical encyclopedia. Retrieved March 30, 2021, from <https://medlineplus.gov/ency/article/000155.htm>
+
+-   American Family Physician. (2004, October 15). High blood pressure. Retrieved March 30, 2021, from <https://www.aafp.org/afp/2004/1015/p1542.html#>
+
+-   Lackland, D. (2014, August). Racial differences in hypertension: Implications for high blood pressure management. Retrieved March 30, 2021, from <https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4108512/#>
+
+-   Centers for Disease Control and Prevention. (2020, May 19). High blood pressure symptoms and causes. Retrieved March 30, 2021, from <https://www.cdc.gov/bloodpressure/about.htm#>
+
+-   Mayo Clinic. (2021, January 16). High blood pressure (hypertension). Retrieved April 02, 2021, from <https://www.mayoclinic.org/diseases-conditions/high-blood-pressure/symptoms-causes/syc-20373410>
